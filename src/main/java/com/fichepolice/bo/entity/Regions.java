@@ -20,6 +20,6 @@ public class Regions {
     private Boolean delete=false;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "pays_code", nullable = false, referencedColumnName = "code")
+    @JoinColumn(name = "pays_code", nullable = false)
     private Pays pays;
 }

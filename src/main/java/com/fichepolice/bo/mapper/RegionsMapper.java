@@ -10,9 +10,11 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface RegionsMapper {
 
-    @Mapping(source = "pays.code", target = "paysCode")
+    // utilisation d'une expression pour extraire le code du pays depuis l'entité
+    @Mapping(target = "paysCode", expression = "java(entity.getPays() == null ? null : entity.getPays().getCode())")
     RegionDto toDto(Regions entity);
 
+    // conversion inverse : MapStruct utilisera la méthode fromCode pour construire un Pays
     @Mapping(source = "paysCode", target = "pays")
     Regions toEntity(RegionDto dto);
 

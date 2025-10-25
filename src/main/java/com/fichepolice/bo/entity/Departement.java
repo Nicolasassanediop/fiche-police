@@ -19,7 +19,10 @@ public class Departement {
     @Column(nullable = false, length = 100)
     private String nom;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "region_id")
+    private Boolean delete = false;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "region_id", nullable = false)
     private Regions region;
+
 }
