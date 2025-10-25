@@ -23,7 +23,7 @@ public class HotelController {
     @Value("${app.base-url}")
     private String baseUrl;
 
-    @GetMapping
+    @GetMapping("list-hotels")
     public List<Hotel> getAll() {
         return hotelService.findAll();
     }

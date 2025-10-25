@@ -19,7 +19,7 @@ public class RegionsController {
 
     private final RegionsService regionsService;
 
-    @GetMapping
+    @GetMapping("list-regions")
     public List<RegionDto> getAll() {
         return regionsService.findAll();
     }

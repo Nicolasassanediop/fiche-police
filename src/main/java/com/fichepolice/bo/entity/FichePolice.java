@@ -12,7 +12,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -55,13 +55,13 @@ public class FichePolice {
     private String profession;
     // -- Séjour
     @NotNull
-    private LocalDateTime dateSortiePays;
+    private LocalDate dateSortiePays;
     @NotNull
-    private LocalDateTime dateArriveePays;
+    private LocalDate dateArriveePays;
     @NotNull
-    private LocalDateTime dateArrivee = LocalDateTime.now();
+    private LocalDate dateArrivee = LocalDate.now();
     @NotNull
-    private LocalDateTime dateDepart;
+    private LocalDate dateDepart;
 
     @Enumerated(EnumType.STRING)
     private MotifSejour motifSejour = MotifSejour.TOURISME;
@@ -82,10 +82,4 @@ public class FichePolice {
 
     @Enumerated(EnumType.STRING)
     private StatutTransmission statutTransmission = StatutTransmission.NON_TRANSMISE;
-
-    /*AUDIT*/
-    @Size(max = 80)
-    private String validerPar;
-    @CreationTimestamp
-    private LocalDateTime validerdAt;
 }

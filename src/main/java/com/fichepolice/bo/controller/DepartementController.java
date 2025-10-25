@@ -19,7 +19,7 @@ public class DepartementController {
 
     private final DepartementService departementService;
 
-    @GetMapping
+    @GetMapping("list-departements")
     public List<DepartementDto> getAll() {
         return departementService.findAll();
     }
