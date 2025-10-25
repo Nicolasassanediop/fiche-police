@@ -17,4 +17,9 @@ public class Regions {
 
     @Column(nullable = false, length = 100)
     private String nom;
+    private Boolean delete=false;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "pays_code", nullable = false, referencedColumnName = "code")
+    private Pays pays;
 }
