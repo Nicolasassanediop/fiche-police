@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/fichepolice
+    username: postgres
+    password: passer
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.jdbc.time_zone: UTC
+
+public:
+  form:
+    base-url: http://localhost:4200/form?hotel=
