@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="hotel")
@@ -13,23 +14,23 @@ import java.time.Instant;
 public class Hotel {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable=false, unique=true, length=32)
-    private String code;
-
+    private String codeHotel;
     @Column(nullable=false, length=160)
     private String nom;
-
-    private String adresse;
-    private String ville;
-    private String pays;
-    private String emailContact;
-    private String telephone;
-    @ManyToOne
-    private Regions regions;
-    private Instant createdAt = Instant.now();
-    private Instant updatedAt = Instant.now();
-    private byte[] qrCode;
-
-    @PreUpdate void touch(){ this.updatedAt = Instant.now(); }
+    private String telephoneHotel;
+    private String emailHotel;
+    private String adresseHotel;
+    private String nomGerant;
+    private String prenomGerant;
+    private String telephoneGerant;
+    private String emailGerant;
+    private LocalDate dateCreation;
+    private Integer nombreChambres;
+    private Integer nombreEtoiles;
+    @Column(name = "deleted")
+    private Boolean deleted = false;
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String qrcode;
 }

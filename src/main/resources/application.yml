@@ -9,6 +9,5 @@ spring:
     properties:
       hibernate.jdbc.time_zone: UTC
 
-public:
-  form:
-    base-url: http://localhost:4200/form?hotel=
+app:
+  base-url: "http://localhost:8080"
