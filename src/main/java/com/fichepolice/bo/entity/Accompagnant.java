@@ -1,25 +1,26 @@
-package com.fichepolice.bo.dto;
+package com.fichepolice.bo.entity;
 
-import com.fichepolice.bo.entity.FichePolice;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Entity
+@Table(name = "accompagnant")
 @Getter
 @Setter
 public class Accompagnant {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nom;
     private String prenom;
-    private LocalDate dateNaissance;
+
+    @Size(max = 64)
     private String numeroPiece;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fiche_police_id")
     private FichePolice fichePolice;
 }

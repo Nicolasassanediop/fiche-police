@@ -1,6 +1,5 @@
 package com.fichepolice.bo.entity;
 
-import com.fichepolice.bo.dto.Accompagnant;
 import com.fichepolice.enums.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -9,9 +8,7 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDate;
 import java.util.List;
 
