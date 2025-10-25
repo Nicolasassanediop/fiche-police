@@ -12,7 +12,7 @@ public class AccompagnantDto {
     private Long id;
     private String nom;
     private String prenom;
-
+    private String nationaliteCode;
     @Size(max = 64)
     private String numeroPiece;
 }

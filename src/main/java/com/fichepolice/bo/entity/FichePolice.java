@@ -79,4 +79,17 @@ public class FichePolice {
 
     @Enumerated(EnumType.STRING)
     private StatutTransmission statutTransmission = StatutTransmission.NON_TRANSMISE;
+
+    public void addAccompagnant(Accompagnant a) {
+        if (a == null) return;
+        accompagnants.add(a);
+        a.setFichePolice(this);
+    }
+
+    public void removeAccompagnant(Accompagnant a) {
+        if (a == null) return;
+        accompagnants.remove(a);
+        a.setFichePolice(null);
+    }
+    private boolean deleted = false;
 }

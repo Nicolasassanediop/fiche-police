@@ -23,4 +23,7 @@ public class Accompagnant {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fiche_police_id")
     private FichePolice fichePolice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Pays nationalite;
 }
