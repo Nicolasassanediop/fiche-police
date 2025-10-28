@@ -2,6 +2,7 @@ package com.fichepolice.bo.service.impl;
 
 import com.fichepolice.bo.dto.AccompagnantDto;
 import com.fichepolice.bo.dto.FichePoliceDto;
+import com.fichepolice.bo.dto.FichePoliceSearchCriteria;
 import com.fichepolice.bo.entity.Accompagnant;
 import com.fichepolice.bo.entity.FichePolice;
 import com.fichepolice.bo.entity.Hotel;
@@ -11,18 +12,27 @@ import com.fichepolice.bo.repository.FichePoliceRepository;
 import com.fichepolice.bo.repository.HotelRepository;
 import com.fichepolice.bo.repository.PaysRepository;
 import com.fichepolice.bo.service.FichePoliceService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.persistence.criteria.Predicate;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class FichePoliceServiceImpl implements FichePoliceService {
+    @PersistenceContext
+    private EntityManager em;
 
     private final FichePoliceRepository repository;
     private final HotelRepository hotelRepository;
@@ -159,5 +169,45 @@ public class FichePoliceServiceImpl implements FichePoliceService {
         } else {
             entity.setNationalite(null);
         }
+    }
+
+    @Override
+    public List<FichePoliceDto> searchFichePolice(FichePoliceSearchCriteria c) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<FichePolice> cq = cb.createQuery(FichePolice.class);
+        Root<FichePolice> root = cq.from(FichePolice.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(cb.isFalse(root.get("deleted")));
+
+        if (StringUtils.hasText(c.getPrenom())) {
+            predicates.add(cb.like(cb.lower(root.get("prenom")), "%" + c.getPrenom().toLowerCase() + "%"));
+        }
+        if (StringUtils.hasText(c.getNom())) {
+            predicates.add(cb.like(cb.lower(root.get("nom")), "%" + c.getNom().toLowerCase() + "%"));
+        }
+        if (StringUtils.hasText(c.getNumeroPiece())) {
+            predicates.add(cb.like(cb.lower(root.get("numeroPiece")), "%" + c.getNumeroPiece().toLowerCase() + "%"));
+        }
+        if (c.getDateArriveeFrom() != null) {
+            predicates.add(cb.greaterThanOrEqualTo(root.get("dateArrivee"), c.getDateArriveeFrom()));
+        }
+        if (c.getDateArriveeTo() != null) {
+            predicates.add(cb.lessThanOrEqualTo(root.get("dateArrivee"), c.getDateArriveeTo()));
+        }
+        if (c.getDateDepartFrom() != null) {
+            predicates.add(cb.greaterThanOrEqualTo(root.get("dateDepart"), c.getDateDepartFrom()));
+        }
+        if (c.getDateDepartTo() != null) {
+            predicates.add(cb.lessThanOrEqualTo(root.get("dateDepart"), c.getDateDepartTo()));
+        }
+
+        cq.where(predicates.toArray(new Predicate[0]));
+        cq.orderBy(cb.desc(root.get("dateArrivee")));
+
+        List<FichePolice> entities = em.createQuery(cq).getResultList();
+        return entities.stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 }

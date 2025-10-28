@@ -1,6 +1,7 @@
 package com.fichepolice.bo.controller;
 
 import com.fichepolice.bo.dto.FichePoliceDto;
+import com.fichepolice.bo.dto.FichePoliceSearchCriteria;
 import com.fichepolice.bo.service.FichePoliceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,10 @@ public class FichePoliceController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         fichePoliceService.delete(id);
+    }
+
+    @PostMapping("/search")
+    public List<FichePoliceDto> search(@RequestBody FichePoliceSearchCriteria criteria) {
+        return fichePoliceService.searchFichePolice(criteria);
     }
 }

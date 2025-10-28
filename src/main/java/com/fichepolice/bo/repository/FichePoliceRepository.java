@@ -1,5 +1,7 @@
 package com.fichepolice.bo.repository;
 
+import com.fichepolice.bo.dto.FichePoliceDto;
+import com.fichepolice.bo.dto.FichePoliceSearchCriteria;
 import com.fichepolice.bo.entity.FichePolice;
 import org.springframework.data.jpa.repository.JpaRepository;
 
