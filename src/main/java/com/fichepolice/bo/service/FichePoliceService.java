@@ -3,6 +3,7 @@ package com.fichepolice.bo.service;
 import com.fichepolice.bo.dto.FichePoliceDto;
 import com.fichepolice.bo.dto.FichePoliceSearchCriteria;
 import com.fichepolice.bo.entity.FichePolice;
+import com.fichepolice.enums.StatutFiche;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface FichePoliceService {
     FichePoliceDto update(Long id, FichePoliceDto dto);
     List<FichePoliceDto>searchFichePolice(FichePoliceSearchCriteria criteria);
     void delete(Long id);
+    FichePoliceDto updateStatut(Long id, StatutFiche statut);
 }

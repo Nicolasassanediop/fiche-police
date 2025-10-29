@@ -75,7 +75,7 @@ public class FichePolice {
     private List<Accompagnant> accompagnants;
 
     @Enumerated(EnumType.STRING)
-    private StatutFiche statut = StatutFiche.EN_ATTENTE;
+    private StatutFiche statut = StatutFiche.EN_ATTENTE_VALIDATION;
 
     @Enumerated(EnumType.STRING)
     private StatutTransmission statutTransmission = StatutTransmission.NON_TRANSMISE;

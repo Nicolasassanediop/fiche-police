@@ -12,6 +12,7 @@ import com.fichepolice.bo.repository.FichePoliceRepository;
 import com.fichepolice.bo.repository.HotelRepository;
 import com.fichepolice.bo.repository.PaysRepository;
 import com.fichepolice.bo.service.FichePoliceService;
+import com.fichepolice.enums.StatutFiche;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -209,5 +210,14 @@ public class FichePoliceServiceImpl implements FichePoliceService {
         return entities.stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public FichePoliceDto updateStatut(Long id, StatutFiche statut) {
+        FichePolice fiche = repository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fiche introuvable"));
+        fiche.setStatut(statut);
+        fiche = repository.save(fiche);
+        return mapper.toDto(fiche);
     }
 }

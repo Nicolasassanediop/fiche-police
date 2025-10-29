@@ -84,6 +84,6 @@ public class FichePoliceDto {
 
     private List<AccompagnantDto> accompagnants;
 
-    private StatutFiche statut = StatutFiche.EN_ATTENTE;
+    private StatutFiche statut = StatutFiche.EN_ATTENTE_VALIDATION;
     private StatutTransmission statutTransmission = StatutTransmission.NON_TRANSMISE;
 }
